@@ -1,0 +1,226 @@
+function validation(){
+	alert("Done");
+	var firstName = document.personal.first_name;	
+	var lastName = document.personal.last_name;	
+	var Phone = document.personal.phone;
+	var emailID = document.personal.email;
+	var gender = document.personal.gender;
+	var branch = document.personal.branch;
+	var currentAddress = document.personal.current_address;
+	var permanentAddress = document.personal.permanent_address;
+
+	if(required(firstName) && alpha(firstName,3,15))
+	{
+		if(required(lastName) && alpha(lastName,3,15))
+		{
+			if(required(Phone) && numeric(Phone))
+			{
+				if(required(emailID) && validate_email(emailID))
+				{
+					if(dropdown(gender))
+					{
+						if(dropdown(branch))
+						{
+							if(required(currentAddress) && alphanumeric(currentAddress))
+							{
+								if(required(permanentAddress) && alphanumeric(permanentAddress))
+								{
+									if(parent_Validation())
+									{
+										if(academic_Validation())
+										{
+											if(registration_Validation())
+											{
+												alert("Registration Successful.");
+												return true;
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return false; 
+}
+
+function parent_Validation(){
+	var fatherName = document.parent.father_name;
+	var fatherPhone = document.parent.father_phone;
+	var fatherEmail = document.parent.father_email;
+	var motherName = document.parent.mother_name;
+	var motherPhone = document.parent.mother_phone;
+	var motherEmail = document.parent.mother_email;
+	
+	if(required(fatherName) && alpha(fatherName,3,15))
+	{
+		if(required(fatherPhone) && numeric(fatherPhone))
+		{
+			if(required(fatherEmail) && validate_email(fatherEmail))
+			{
+				if(required(motherName) && alpha(motherName,3,15))
+				{
+					if(required(motherPhone) && numeric(motherPhone))
+					{
+						if(required(motherEmail) && validate_email(motherEmail))
+						{
+							return true;
+						}
+					}
+				}
+			}
+		}
+	}
+	return false; 
+}
+
+function academic_Validation(){
+	var schoolName10 = document.academic.school_name_10;
+	var boardName10 = document.academic.board_name_10;
+	var result10 = document.academic.result_10;
+	var schoolName12 = document.academic.school_name_12;
+	var boardName12 = document.academic.board_name_12;
+	var result12 = document.academic.result_12;	
+	
+	if(required(schoolName10) && alpha(schoolName10,3,25))
+	{
+		if(required(schoolName12) && alpha(schoolName12,3,25))
+		{
+			if(required(boardName10) && alpha(boardName10,3,25))
+			{
+				if(required(boardName12) && alpha(boardName12,3,25))
+				{
+					if(required(result10) && numeric(result10))
+					{
+						if(required(result12) && numeric(result12))
+						{
+							return true;							
+						}
+					}
+				}
+			}
+		}
+	}
+	return false; 
+}
+
+function registration_Validation(){
+	var uid = document.registration.userid;
+	var pid = document.registration.password;
+	var re_pid = document.registration.re_password;
+
+	if(required(uid) && alphanumeric(uid))
+	{
+		if(required(pid) && alphanumeric(pid))
+		{
+			if(required(re_pid) && alphanumeric(re_pid))
+			{
+				return true;
+			}
+		}
+	}
+	return false; 
+}
+
+function alpha(ip,start,end){
+	var pattern = /^[a-zA-Z]+$/;
+		
+	if(ip.value.match(pattern) && ip.value.length >= start && ip.value.length<=end){	
+		return true;
+	}
+	else{
+		alert("Use alphabets only and " + start +"-" + end + " number of characters.");
+		ip.focus();
+		return false;
+	}
+}
+
+function required(ip){
+	if(ip.value.length == 0){
+		alert("Required field.");
+		ip.focus();
+		return false;
+	}
+	return true;
+}
+
+function numeric(ip){
+	var pattern = /^d[0-9]+$/;
+		
+	if(ip.value.match(pattern)){
+		return true;
+	}
+	else{
+		alert("Use 0-9 digits only.");
+		ip.focus();
+		return false;
+	}
+}
+
+function validate_email(ip){
+	var pattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+	
+	if(ip.value.match(pattern)){
+		return true;
+	}
+	else{
+		alert("Use valid email address.");
+		ip.focus();
+		return false;
+	}
+}
+function alphanumeric(ip){
+	var pattern = /^[0-9a-zA-Z]+$/;
+	
+	if(ip.value.match(pattern)){
+		return true;
+	}
+	else{
+		alert("Use digits or alphabets only.");
+		ip.focus();
+		return false;
+	}
+}
+function dropdown(ip){
+	if(ip.value == "Default"){
+		alert("Select atleast one choice.");
+		ip.focus();
+		return false;
+	}
+	else{
+		return true;
+	}
+}
+function checkbox(a,b){
+	x = 0;
+	if(a.checked()){
+		x++;
+	}
+	if(b.checked()){
+		x++;
+	}
+	if(x==0){
+		alert("Choose atleast one choice.");
+		a.focus();
+		return false;
+	}
+	if(x==2){
+		alert("Choose only one choice.");
+		b.focus();
+		return false;
+	}
+	return true;
+}
+function verify(){
+	if(g.value == 4){
+		alert("Form Submitted successfully.");
+		return true;
+	}
+	else{
+		alert("Enter all 4 details.");
+		return false;
+	}
+}
